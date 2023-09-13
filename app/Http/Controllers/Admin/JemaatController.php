@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\JemaatService;
 use App\Services\UnitService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JemaatController extends Controller
 {
@@ -19,7 +20,7 @@ class JemaatController extends Controller
     }
     public function index()
     {
-        $user = \Auth::guard('admin')->user();
+        $user = Auth::guard('admin')->user();
         $data['unit'] = $this->unitService->get($user->sektor->first()->id);
         $data['jemaat'] = $this->jemaatService->all();
         return view('jemaat.index', $data);
